@@ -38,12 +38,12 @@ const Header = () => {
                     <h1>The <br /> Earls Court Development Company</h1>
                     <Icon icon="ph:list-bold" color="gray" className='Icon' onClick={() => setShowSideMenu(!showSideMenu)} />
                 </div>
+            </div>
             {showSideMenu && (
                 <div className="side-menu-overlay">
                     <SideMenu closeSideMenu={() => setShowSideMenu(false)}/>
                 </div>
             )}
-            </div>
         </>
     )
 }
