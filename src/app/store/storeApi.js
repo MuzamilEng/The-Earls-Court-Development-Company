@@ -8,9 +8,12 @@ export const storeApi = createApi({
         getHomeContent: builder.query({
             query: () => `/home`,
         }),
-        getPostsById: builder.query({
-            query: (id) => `/products/${id}`,
+        getPostById: builder.query({
+            query: (id) => `/posts/${id}`,
           }),
+          getPosts: builder.query({
+            query: () => `/posts`,
+        }),
         addHomeContent: builder.mutation({
             query: (data) => ({
                 url: '/home',
@@ -25,39 +28,33 @@ export const storeApi = createApi({
               body: data,
             }),
         }),
-        deletePost: builder.mutation({
-            query: (id) => ({
-              url: `/products/${id}`,
-              method: 'DELETE',
-            }),
-          }),
-        addUser: builder.mutation({
+        addHomePost: builder.mutation({
             query: (data) => ({
-                url: '/auth/register',
+                url: '/Posts',
                 method: 'POST',
                 body: data,
             }),
         }),
-        loginUser: builder.mutation({
+        updateHomePost: builder.mutation({
+            query: ({ id, data }) => ({
+              url: `/editPost/${id}`,
+              method: 'PUT',
+              body: data,
+            }),
+        }),
+        deletePost: builder.mutation({
+            query: (id) => ({
+              url: `/posts/${id}`,
+              method: 'DELETE',
+            }),
+          }),
+        loginAdmin: builder.mutation({
             query: (data) => ({
                 url: '/auth/login',
                 method: 'POST',
                 body: data,
             }),
         }),
-        editUser: builder.mutation({
-            query: ({ userID, data }) => ({
-                url: `/uploads${userID}`,
-                method: 'PUT',
-                body: data,
-            })
-        }),
-        deleteUser: builder.mutation({
-            query: (userID) => ({
-                url: `/uploads${userID}`,
-                method: 'DELETE',                
-            })
-        })
     })
 })
 
@@ -65,13 +62,10 @@ export const {
     useGetHomeContentQuery,
     useAddHomeContentMutation,
     useUpdateHomeContentMutation,
-    useAddPostMutation,
+    useAddHomePostMutation,
+    useLoginAdminMutation,
     useGetPostsQuery,
-    useGetPostsByIdQuery,
+    useGetPostByIdQuery,
     useDeletePostMutation,
-    useUpdatePostMutation,
-    useAddUserMutation,
-    useEditUserMutation,
-    useDeleteUserMutation,
-    useLoginUserMutation
+    useUpdateHomePostMutation,
 } = storeApi
